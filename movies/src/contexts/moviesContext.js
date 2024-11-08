@@ -1,44 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 
-export const MoviesContext = React.createContext(null);
+export const MoviesContext = createContext();
 
-const MoviesContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
-  const [myReviews, setMyReviews] = useState( {} ) 
+const MoviesContextProvider = ({ children }) => {
+  const [favorites, setFavorites] = useState([]);
+  const [mustWatch, setMustWatch] = useState([]); // New "Must Watch" state variable
 
   const addToFavorites = (movie) => {
-    let newFavorites = [];
-    if (!favorites.includes(movie.id)){
-      newFavorites = [...favorites, movie.id];
-    }
-    else{
-      newFavorites = [...favorites];
-    }
-    setFavorites(newFavorites)
+    setFavorites([...favorites, movie.id]);
   };
 
-  const addReview = (movie, review) => {
-    setMyReviews( {...myReviews, [movie.id]: review } )
+  // Function to add a movie to the "Must Watch" list
+  const addToMustWatch = (movieId) => {
+    if (mustWatch.includes(movieId)) {
+      // 如果已在 mustWatch 列表中，移除该电影
+      setMustWatch((prevMustWatch) => {
+        const updatedMustWatch = prevMustWatch.filter(id => id !== movieId);
+        console.log("Updated Must Watch List:", updatedMustWatch); // 输出更新后的列表
+        return updatedMustWatch;
+      });
+    } else {
+      // 如果不在 mustWatch 列表中，将该电影添加进去
+      setMustWatch((prevMustWatch) => {
+        const updatedMustWatch = [...prevMustWatch, movieId];
+        console.log("Updated Must Watch List:", updatedMustWatch); // 输出更新后的列表
+        return updatedMustWatch;
+      });
+    }
   };
-  //console.log(myReviews);
   
-  // We will use this function in the next step
-  const removeFromFavorites = (movie) => {
-    setFavorites( favorites.filter(
-      (mId) => mId !== movie.id
-    ) )
-  };
 
   return (
     <MoviesContext.Provider
       value={{
         favorites,
         addToFavorites,
-        removeFromFavorites,
-        addReview,
+        mustWatch,          // Provide mustWatch state
+        addToMustWatch,     // Provide addToMustWatch function
       }}
     >
-      {props.children}
+      {children}
     </MoviesContext.Provider>
   );
 };

@@ -31,6 +31,14 @@ const MoviePage = () => {
             <Link to={`/movie/${id}/recommendations`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#3f51b5' }}>
               View Recommendations
             </Link>
+
+            {/* 新增的相似电影链接 */}
+            <Link to={`/movie/${id}/similar`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#388e3c', textDecoration: 'underline' }}>
+              View Similar Movies
+            </Link>
+
+
+
           </PageTemplate>
         </>
       ) : (

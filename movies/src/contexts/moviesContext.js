@@ -7,7 +7,10 @@ const MoviesContextProvider = ({ children }) => {
   const [mustWatch, setMustWatch] = useState([]); // "Must Watch" 状态变量
 
   const addToFavorites = (movie) => {
-    setFavorites([...favorites, movie.id]);
+    // 检查电影是否已存在于收藏列表中
+    if (!favorites.includes(movie.id)) {
+      setFavorites([...favorites, movie.id]);
+    }
   };
 
   // 从收藏列表中移除电影的函数

@@ -41,10 +41,6 @@ const MoviePage = () => {
              <Link to={`/movie/${id}/cast`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#ff5722', textDecoration: 'underline' }}>
               View Cast
             </Link>
-
-
-
-
           </PageTemplate>
         </>
       ) : (

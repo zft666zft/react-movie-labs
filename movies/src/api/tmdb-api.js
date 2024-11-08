@@ -121,4 +121,21 @@ export const getMovies = () => {
       });
   };
   
+  export const getMovieRecommendations = (movieId) => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((error) => {
+            throw new Error(error.status_message || "Something went wrong");
+          });
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+  
   

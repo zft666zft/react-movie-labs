@@ -37,6 +37,12 @@ const MoviePage = () => {
               View Similar Movies
             </Link>
 
+             {/* 新增的演员列表链接 */}
+             <Link to={`/movie/${id}/cast`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#ff5722', textDecoration: 'underline' }}>
+              View Cast
+            </Link>
+
+
 
 
           </PageTemplate>

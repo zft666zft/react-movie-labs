@@ -16,6 +16,10 @@ import RecommendationsPage from './pages/recommendationsPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
 import MovieCastPage from './pages/movieCastPage';
 import ActorMoviesPage from './pages/actorMoviesPage';
+import HotMoviesPage from './pages/HotMoviesPage';
+
+
+
 
 
 const queryClient = new QueryClient({
@@ -47,6 +51,9 @@ const App = () => {
             <Route path="/movie/:id/similar" element={<SimilarMoviesPage />} />
             <Route path="/movie/:id/cast" element={<MovieCastPage />} />
             <Route path="/actor/:id/movies" element={<ActorMoviesPage />} />
+            <Route path="/hot-movies" element={<HotMoviesPage />} />
+            
+            
 
           </Routes>
         </MoviesContextProvider>

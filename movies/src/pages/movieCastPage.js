@@ -26,7 +26,7 @@ const MovieCastPage = () => {
           {cast.slice(0, 10).map((actor) => (
             <li key={actor.cast_id} style={{ marginBottom: "15px", display: "flex", alignItems: "center" }}>
               <img 
-                src={`https://image.tmdb.org/t/p/w92/${actor.profile_path}`} 
+                src={actor.profile_path ? `https://image.tmdb.org/t/p/w92${actor.profile_path}` : "/images/film-poster-placeholder.png"} 
                 alt={actor.name} 
                 style={{ borderRadius: "50%", marginRight: "15px" }}
               />

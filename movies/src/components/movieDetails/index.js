@@ -9,6 +9,9 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
+import LanguageIcon from '@mui/icons-material/Language';
+
+
 
 
 const root = {
@@ -57,6 +60,10 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           icon={<StarRate />}
           label={`${movie.vote_average} (${movie.vote_count})`}
         />
+           <Chip
+            icon={<LanguageIcon />}
+            label={`Original Language: ${movie.original_language}`}
+            />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
 

@@ -17,7 +17,7 @@ import SimilarMoviesPage from './pages/similarMoviesPage';
 import MovieCastPage from './pages/movieCastPage';
 import ActorMoviesPage from './pages/actorMoviesPage';
 import HotMoviesPage from './pages/HotMoviesPage';
-
+import LatestTrailersPage from './pages/LatestTrailersPage';
 
 
 
@@ -52,7 +52,7 @@ const App = () => {
             <Route path="/movie/:id/cast" element={<MovieCastPage />} />
             <Route path="/actor/:id/movies" element={<ActorMoviesPage />} />
             <Route path="/hot-movies" element={<HotMoviesPage />} />
-            
+            <Route path="/latest-trailers" element={<LatestTrailersPage />} />
             
 
           </Routes>

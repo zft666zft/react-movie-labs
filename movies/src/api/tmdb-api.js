@@ -207,6 +207,32 @@ export const getHotMovies = () => {
     });
 };
 
-
+// 获取预告片信息
+export const getLatestTrailers = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      return Promise.all(data.results.map(movie =>
+        fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${process.env.REACT_APP_TMDB_KEY}`)
+          .then(response => response.json())
+          .then(videoData => ({
+            ...movie,
+            trailers: videoData.results.filter(video => video.type === "Trailer")
+          }))
+      ));
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
 
 

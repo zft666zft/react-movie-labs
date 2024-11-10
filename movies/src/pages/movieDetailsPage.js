@@ -21,12 +21,18 @@ const MoviePage = () => {
     return <h1>{error.message}</h1>;
   }
 
+  // 确定电影的海报路径，如果没有海报，则使用占位符图片
+  const posterUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : "/images/film-poster-placeholder.png";
+
   return (
     <>
       {movie ? (
         <>
-          <PageTemplate movie={movie}>
+          <PageTemplate movie={{ ...movie, poster_path: posterUrl }}>
             <MovieDetails movie={movie} />
+
             {/* 新增的推荐链接 */}
             <Link to={`/movie/${id}/recommendations`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#3f51b5' }}>
               View Recommendations
@@ -37,8 +43,8 @@ const MoviePage = () => {
               View Similar Movies
             </Link>
 
-             {/* 新增的演员列表链接 */}
-             <Link to={`/movie/${id}/cast`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#ff5722', textDecoration: 'underline' }}>
+            {/* 新增的演员列表链接 */}
+            <Link to={`/movie/${id}/cast`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#ff5722', textDecoration: 'underline' }}>
               View Cast
             </Link>
 
@@ -46,7 +52,6 @@ const MoviePage = () => {
             <Link to={`/movie/${id}/credits`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#9c27b0', textDecoration: 'underline' }}>
               View Full Credits
             </Link>
-
             
           </PageTemplate>
         </>

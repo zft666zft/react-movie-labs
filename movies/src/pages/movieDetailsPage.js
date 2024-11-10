@@ -42,9 +42,12 @@ const MoviePage = () => {
               View Cast
             </Link>
 
+            {/* 新增的演员和制作人员链接 */}
+            <Link to={`/movie/${id}/credits`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#9c27b0', textDecoration: 'underline' }}>
+              View Full Credits
+            </Link>
+
             
-
-
           </PageTemplate>
         </>
       ) : (

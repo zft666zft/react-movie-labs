@@ -18,7 +18,7 @@ import MovieCastPage from './pages/movieCastPage';
 import ActorMoviesPage from './pages/actorMoviesPage';
 import HotMoviesPage from './pages/HotMoviesPage';
 import LatestTrailersPage from './pages/LatestTrailersPage';
-
+import MovieCreditsPage from './pages/movieCreditsPage';
 
 
 
@@ -53,7 +53,7 @@ const App = () => {
             <Route path="/actor/:id/movies" element={<ActorMoviesPage />} />
             <Route path="/hot-movies" element={<HotMoviesPage />} />
             <Route path="/latest-trailers" element={<LatestTrailersPage />} />
-            
+            <Route path="/movie/:id/credits" element={<MovieCreditsPage />} />
 
           </Routes>
         </MoviesContextProvider>

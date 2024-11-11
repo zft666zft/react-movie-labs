@@ -19,7 +19,7 @@ import ActorMoviesPage from './pages/actorMoviesPage';
 import HotMoviesPage from './pages/HotMoviesPage';
 import LatestTrailersPage from './pages/LatestTrailersPage';
 import MovieCreditsPage from './pages/movieCreditsPage';
-
+import ActorDetailsPage from './pages/ActorDetailsPage';
 
 
 const queryClient = new QueryClient({
@@ -54,6 +54,7 @@ const App = () => {
             <Route path="/hot-movies" element={<HotMoviesPage />} />
             <Route path="/latest-trailers" element={<LatestTrailersPage />} />
             <Route path="/movie/:id/credits" element={<MovieCreditsPage />} />
+            <Route path="/actor/:id/details" element={<ActorDetailsPage />} />
 
           </Routes>
         </MoviesContextProvider>

@@ -25,17 +25,21 @@ const MovieCastPage = () => {
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {cast.slice(0, 10).map((actor) => (
             <li key={actor.cast_id} style={{ marginBottom: "15px", display: "flex", alignItems: "center" }}>
-              <img 
-                src={actor.profile_path ? `https://image.tmdb.org/t/p/w92${actor.profile_path}` : "/images/film-poster-placeholder.png"} 
-                alt={actor.name} 
+              <img
+                src={actor.profile_path ? `https://image.tmdb.org/t/p/w92${actor.profile_path}` : "/images/film-poster-placeholder.png"}
+                alt={actor.name}
                 style={{ borderRadius: "50%", marginRight: "15px" }}
               />
               <div>
-                {/* 演员名字的链接 */}
-                <Link to={`/actor/${actor.id}/movies`} style={{ fontSize: '18px', color: '#3f51b5' }}>
+                {/* 演员名字的链接，跳转到演员详细信息页面 */}
+                <Link to={`/actor/${actor.id}/details`} style={{ fontSize: '18px', color: '#3f51b5', textDecoration: 'none', fontWeight: 'bold' }}>
                   {actor.name}
                 </Link>
                 <p style={{ margin: "5px 0 0", color: "#757575" }}>as {actor.character}</p>
+                {/* 演员相关电影的链接 */}
+                <Link to={`/actor/${actor.id}/movies`} style={{ fontSize: '16px', color: '#0066cc', textDecoration: 'underline' }}>
+                  View Movies
+                </Link>
               </div>
             </li>
           ))}

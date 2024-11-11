@@ -1,8 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getActorDetails, getActorMovies } from "../api/tmdb-api";
+
 
 const ActorDetailsPage = () => {
   const { id } = useParams();
@@ -47,7 +48,10 @@ const ActorDetailsPage = () => {
                 alt={movie.title}
                 style={{ width: "154px", height: "231px", borderRadius: "10px", objectFit: "cover" }}
               />
-              <p>{movie.title}</p>
+              {/* 添加跳转到电影详情页面的链接 */}
+              <Link to={`/movies/${movie.id}`} style={{ fontSize: '18px', color: '#3f51b5', textDecoration: 'none' }}>
+                {movie.title}
+              </Link>
             </div>
           ))}
         </div>

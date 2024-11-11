@@ -52,6 +52,11 @@ const MoviePage = () => {
             <Link to={`/movie/${id}/credits`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#9c27b0', textDecoration: 'underline' }}>
               View Full Credits
             </Link>
+
+            {/* 新增的视频列表链接 */}
+            <Link to={`/movie/${id}/videos`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#e91e63', textDecoration: 'underline' }}>
+              View Related Videos
+            </Link>
             
           </PageTemplate>
         </>

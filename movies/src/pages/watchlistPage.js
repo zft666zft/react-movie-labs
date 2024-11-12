@@ -4,13 +4,13 @@ import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner';
-import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
+import RemoveFromWatchlistIcon from "../components/cardIcons/removeFromWatchlist";
 import WriteReview from "../components/cardIcons/writeReview";
 
-const FavoriteMoviesPage = () => {
-  const { favorites: movieIds } = useContext(MoviesContext);
+const WatchlistPage = () => {
+  const { mustWatch: movieIds } = useContext(MoviesContext);
 
-  const favoriteMovieQueries = useQueries(
+  const watchlistMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
         queryKey: ["movie", { id: movieId }],
@@ -19,24 +19,24 @@ const FavoriteMoviesPage = () => {
     })
   );
 
-  const isLoading = favoriteMovieQueries.find((m) => m.isLoading === true);
+  const isLoading = watchlistMovieQueries.find((m) => m.isLoading === true);
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  const movies = favoriteMovieQueries.map((q) => {
+  const movies = watchlistMovieQueries.map((q) => {
     q.data.genre_ids = q.data.genres.map(g => g.id);
     return q.data;
   });
 
   return (
     <PageTemplate
-      title="Favorite Movies"
+      title="Watchlist"
       movies={movies}
       action={(movie) => (
         <>
-          <RemoveFromFavorites movie={movie} />
+          <RemoveFromWatchlistIcon movie={movie} />
           <WriteReview movie={movie} />
         </>
       )}
@@ -44,4 +44,4 @@ const FavoriteMoviesPage = () => {
   );
 };
 
-export default FavoriteMoviesPage;
+export default WatchlistPage;

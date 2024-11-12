@@ -15,9 +15,15 @@ import Grid from "@mui/material/Grid2";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
+import AddToWatchlistIcon from "../cardIcons/addToWatchlist";
+import RemoveFromWatchlistIcon from "../cardIcons/removeFromWatchlist";
 
 export default function MovieCard({ movie, action }) {
     const { favorites, addToFavorites } = useContext(MoviesContext);
+
+    const { mustWatch } = useContext(MoviesContext);
+
+  const isInWatchlist = mustWatch.includes(movie.id);
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
@@ -29,6 +35,7 @@ export default function MovieCard({ movie, action }) {
     e.preventDefault();
     addToFavorites(movie);
   };
+
   return (
     <Card>
       <CardHeader
@@ -72,7 +79,9 @@ export default function MovieCard({ movie, action }) {
       <CardActions disableSpacing>
       
       {action(movie)}
-    
+      
+
+        {/* More Info按钮 */}
       <Link to={`/movies/${movie.id}`}>
         <Button variant="outlined" size="medium" color="primary">
           More Info ...

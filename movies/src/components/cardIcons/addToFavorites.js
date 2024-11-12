@@ -1,19 +1,31 @@
 import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"; // 空心爱心图标
+import FavoriteIcon from "@mui/icons-material/Favorite"; // 实心爱心图标
 
 const AddToFavoritesIcon = ({ movie }) => {
-  const context = useContext(MoviesContext);
+  const { favorites, addToFavorites, removeFromFavorites } = useContext(MoviesContext);
 
-  const handleAddToFavorites = (e) => {
+  // 检查当前电影是否已经在收藏列表中
+  const isInFavorites = favorites.includes(movie.id);
+
+  const handleToggleFavorite = (e) => {
     e.preventDefault();
-    context.addToFavorites(movie);
+    if (isInFavorites) {
+      removeFromFavorites(movie);  // 从收藏列表中移除
+    } else {
+      addToFavorites(movie);  // 添加到收藏列表
+    }
   };
 
   return (
-    <IconButton aria-label="add to favorites" onClick={handleAddToFavorites}>
-      <FavoriteIcon color="primary" fontSize="large" />
+    <IconButton aria-label="toggle favorite" onClick={handleToggleFavorite}>
+      {isInFavorites ? (
+        <FavoriteIcon color="error" fontSize="large" /> // 已收藏状态显示红色实心爱心
+      ) : (
+        <FavoriteBorderIcon fontSize="large" /> // 未收藏状态显示空心爱心
+      )}
     </IconButton>
   );
 };

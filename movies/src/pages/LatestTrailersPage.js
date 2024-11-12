@@ -2,9 +2,11 @@ import React from "react";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getLatestTrailers } from "../api/tmdb-api";
+import PageTemplate from '../components/templateMovieListPage';
+import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 
 const LatestTrailersPage = () => {
-  const { data: trailers, error, isLoading, isError } = useQuery("latestTrailers", getLatestTrailers);
+  const { data, error, isLoading, isError } = useQuery("latestTrailers", getLatestTrailers);
 
   if (isLoading) {
     return <Spinner />;
@@ -14,21 +16,16 @@ const LatestTrailersPage = () => {
     return <h1>{error.message}</h1>;
   }
 
+  const movies = data.filter(movie => movie.trailers.length > 0); // 只保留有预告片的电影
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Latest Trailers</h2>
-      <div style={{ display: "flex", gap: "20px", overflowX: "auto" }}>
-        {trailers.map((movie, index) => (
-          movie.trailers.length > 0 && (
-            <div key={index} style={{ minWidth: "250px", backgroundColor: "#333", color: "#fff", padding: "10px", borderRadius: "10px" }}>
-              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} style={{ width: "100%", borderRadius: "8px" }} />
-              <h3>{movie.title}</h3>
-              <p>{movie.trailers[0].name}</p>
-            </div>
-          )
-        ))}
-      </div>
-    </div>
+    <PageTemplate
+      title="Latest Trailers"
+      movies={movies}
+      action={(movie) => {
+        return <AddToFavoritesIcon movie={movie} />;
+      }}
+    />
   );
 };
 

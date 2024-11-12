@@ -59,6 +59,10 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "releaseDate", newValue);
   };
 
+  const handleSortChange = (e) => {
+    handleChange(e, "sort", e.target.value);
+  };
+
   return (
     <Card 
       sx={{
@@ -68,7 +72,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          Filter Movies
         </Typography>
 
         {/* Title Filter */}
@@ -120,6 +124,23 @@ export default function FilterMoviesCard(props) {
           max={new Date().getFullYear()}
           aria-labelledby="release-date-slider"
         />
+
+        {/* Sort Option */}
+        <FormControl sx={{ ...formControl, marginTop: 2 }}>
+          <InputLabel id="sort-label">Sort by</InputLabel>
+          <Select
+            labelId="sort-label"
+            id="sort-select"
+            value={props.sortOption}
+            onChange={handleSortChange}
+          >
+            <MenuItem value="">Default</MenuItem>
+            <MenuItem value="rating">Rating</MenuItem>
+            <MenuItem value="name">Name</MenuItem>
+            <MenuItem value="releaseDate">Release Date</MenuItem>
+          </Select>
+        </FormControl>
+        
       </CardContent>
 
       <CardMedia

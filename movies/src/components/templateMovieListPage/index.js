@@ -9,6 +9,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [genreFilter, setGenreFilter] = useState("0");
   const [ratingFilter, setRatingFilter] = useState([0, 10]); // 评分区间
   const [releaseDateFilter, setReleaseDateFilter] = useState([2000, new Date().getFullYear()]); // 发布年份区间
+  const [sortOption, setSortOption] = useState(""); // 添加排序选项
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -26,6 +27,14 @@ function MovieListPageTemplate({ movies, title, action }) {
       return releaseYear >= releaseDateFilter[0] && releaseYear <= releaseDateFilter[1];
     });
 
+  // 根据排序选项对过滤后的电影列表进行排序
+  displayedMovies = displayedMovies.sort((a, b) => {
+    if (sortOption === "rating") return b.vote_average - a.vote_average;
+    if (sortOption === "name") return a.title.localeCompare(b.title);
+    if (sortOption === "releaseDate") return new Date(b.release_date) - new Date(a.release_date);
+    return 0;
+  });
+
   const handleChange = (type, value) => {
     switch (type) {
       case "name":
@@ -39,6 +48,9 @@ function MovieListPageTemplate({ movies, title, action }) {
         break;
       case "releaseDate":
         setReleaseDateFilter(value);
+        break;
+      case "sort":
+        setSortOption(value);
         break;
       default:
         break;
@@ -63,6 +75,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             ratingFilter={ratingFilter}
             releaseDateFilter={releaseDateFilter}
           />
+          
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
       </Grid>

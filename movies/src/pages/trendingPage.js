@@ -4,6 +4,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const TrendingPage = () => {
   const { data, error, isLoading, isError } = useQuery('trending', getTrendingMovies);
@@ -22,9 +23,12 @@ const TrendingPage = () => {
     <PageTemplate
       title="Trending Movies"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />;
-      }}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
     />
   );
 };

@@ -4,6 +4,7 @@ import Spinner from "../components/spinner";
 import { getLatestTrailers } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const LatestTrailersPage = () => {
   const { data, error, isLoading, isError } = useQuery("latestTrailers", getLatestTrailers);
@@ -22,9 +23,12 @@ const LatestTrailersPage = () => {
     <PageTemplate
       title="Latest Trailers"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />;
-      }}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
     />
   );
 };

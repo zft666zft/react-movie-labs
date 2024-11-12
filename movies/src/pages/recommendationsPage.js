@@ -5,6 +5,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const RecommendationsPage = () => {
   const { id } = useParams(); // 获取电影 ID 参数
@@ -24,9 +25,12 @@ const RecommendationsPage = () => {
     <PageTemplate
       title="Recommended Movies"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />;
-      }}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
     />
   );
 };

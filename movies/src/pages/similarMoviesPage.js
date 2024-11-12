@@ -5,6 +5,7 @@ import Spinner from '../components/spinner';
 import PageTemplate from '../components/templateMovieListPage';
 import { getSimilarMovies } from '../api/tmdb-api';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const SimilarMoviesPage = () => {
   const { id } = useParams();
@@ -24,7 +25,12 @@ const SimilarMoviesPage = () => {
     <PageTemplate
       title="Similar Movies"
       movies={movies}
-      action={(movie) => <AddToFavoritesIcon movie={movie} />}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
     />
   );
 };

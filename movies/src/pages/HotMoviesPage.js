@@ -4,6 +4,7 @@ import Spinner from "../components/spinner";
 import { getHotMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const HotMoviesPage = () => {
   const { data, error, isLoading, isError } = useQuery("hotMovies", getHotMovies);
@@ -22,9 +23,12 @@ const HotMoviesPage = () => {
     <PageTemplate
       title="Hot Movies"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />;
-      }}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
     />
   );
 };

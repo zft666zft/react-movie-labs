@@ -4,11 +4,11 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { MoviesContext } from "../../contexts/moviesContext";
 
 const RemoveFromWatchlistIcon = ({ movie }) => {
-  const context = useContext(MoviesContext);
+  const { removeFromMustWatch } = useContext(MoviesContext); // 使用 removeFromMustWatch
 
   const handleRemoveFromWatchlist = (e) => {
     e.preventDefault();
-    context.addToMustWatch(movie.id);
+    removeFromMustWatch(movie); // 调用正确的移除函数
   };
 
   return (

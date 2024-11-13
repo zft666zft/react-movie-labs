@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -8,44 +8,43 @@ import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import BookmarkIcon from "@mui/icons-material/Bookmark"; // 顶部的书签图标
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid2";
-import img from '../../images/film-poster-placeholder.png'
+import img from '../../images/film-poster-placeholder.png';
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
+import AddToFavoritesIcon from "../cardIcons/addToFavorites";
 import AddToWatchlistIcon from "../cardIcons/addToWatchlist";
-import RemoveFromWatchlistIcon from "../cardIcons/removeFromWatchlist";
 
 export default function MovieCard({ movie, action }) {
-    const { favorites, addToFavorites } = useContext(MoviesContext);
+  const { favorites, mustWatch } = useContext(MoviesContext);
 
-    const { mustWatch } = useContext(MoviesContext);
-
+  // 检查当前电影是否在收藏或观影清单中
+  const isInFavorites = favorites.includes(movie.id);
   const isInWatchlist = mustWatch.includes(movie.id);
-
-  if (favorites.find((id) => id === movie.id)) {
-    movie.favorite = true;
-  } else {
-    movie.favorite = false
-  }
-
-  const handleAddToFavorite = (e) => {
-    e.preventDefault();
-    addToFavorites(movie);
-  };
 
   return (
     <Card>
       <CardHeader
         avatar={
-          movie.favorite ? (
+          isInFavorites ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
           ) : null
         }
+
+        action={
+          isInWatchlist ? (
+            <Avatar sx={{ backgroundColor: 'blue' }}>
+              <BookmarkIcon />
+            </Avatar>
+          ) : null
+        }
+
         title={
           <Typography variant="h5" component="p">
             {movie.title}{" "}
@@ -62,13 +61,13 @@ export default function MovieCard({ movie, action }) {
       />
       <CardContent>
         <Grid container>
-          <Grid size={{xs: 6}}>
+          <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
-          <Grid size={{xs: 6}}>
+          <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
@@ -77,18 +76,16 @@ export default function MovieCard({ movie, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-      
+
       {action(movie)}
-      
 
         {/* More Info按钮 */}
-      <Link to={`/movies/${movie.id}`}>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info ...
-        </Button>
-      </Link>
-      
-    </CardActions>
+        <Link to={`/movies/${movie.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
+      </CardActions>
     </Card>
   );
 }

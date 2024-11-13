@@ -10,6 +10,7 @@ import WriteReview from "../components/cardIcons/writeReview";
 const WatchlistPage = () => {
   const { mustWatch: movieIds } = useContext(MoviesContext);
 
+  // 使用 useQueries 获取每个电影的详细信息
   const watchlistMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
@@ -19,16 +20,20 @@ const WatchlistPage = () => {
     })
   );
 
-  const isLoading = watchlistMovieQueries.find((m) => m.isLoading === true);
+  const isLoading = watchlistMovieQueries.some((m) => m.isLoading);
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  const movies = watchlistMovieQueries.map((q) => {
-    q.data.genre_ids = q.data.genres.map(g => g.id);
-    return q.data;
-  });
+  // 过滤出成功获取的电影数据，避免可能的 undefined 值
+  const movies = watchlistMovieQueries
+    .map((q) => q.data)
+    .filter((data) => data !== undefined)
+    .map((data) => {
+      data.genre_ids = data.genres.map(g => g.id);
+      return data;
+    });
 
   return (
     <PageTemplate

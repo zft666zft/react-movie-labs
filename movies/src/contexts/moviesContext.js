@@ -6,6 +6,7 @@ const MoviesContextProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [mustWatch, setMustWatch] = useState([]); // "Must Watch" 状态变量
 
+  // 添加到收藏列表的函数
   const addToFavorites = (movie) => {
     // 检查电影是否已存在于收藏列表中
     if (!favorites.includes(movie.id)) {
@@ -18,31 +19,28 @@ const MoviesContextProvider = ({ children }) => {
     setFavorites((prevFavorites) => prevFavorites.filter(id => id !== movie.id));
   };
 
-  // 添加或移除 "Must Watch" 列表中的电影
-  const addToMustWatch = (movieId) => {
-    if (mustWatch.includes(movieId)) {
-      setMustWatch((prevMustWatch) => {
-        const updatedMustWatch = prevMustWatch.filter(id => id !== movieId);
-        console.log("Updated Must Watch List:", updatedMustWatch); // 输出更新后的列表
-        return updatedMustWatch;
-      });
-    } else {
-      setMustWatch((prevMustWatch) => {
-        const updatedMustWatch = [...prevMustWatch, movieId];
-        console.log("Updated Must Watch List:", updatedMustWatch); // 输出更新后的列表
-        return updatedMustWatch;
-      });
+  // 添加到观影清单的函数
+  const addToMustWatch = (movie) => {
+    // 检查电影是否已存在于观影清单中
+    if (!mustWatch.includes(movie.id)) {
+      setMustWatch([...mustWatch, movie.id]);
     }
   };
-  
+
+  // 从观影清单中移除电影的函数
+  const removeFromMustWatch = (movie) => {
+    setMustWatch((prevMustWatch) => prevMustWatch.filter(id => id !== movie.id));
+  };
+
   return (
     <MoviesContext.Provider
       value={{
         favorites,
         addToFavorites,
-        removeFromFavorites, // 提供 removeFromFavorites 函数
-        mustWatch,           // 提供 mustWatch 状态
-        addToMustWatch,      // 提供 addToMustWatch 函数
+        removeFromFavorites,
+        mustWatch,
+        addToMustWatch,
+        removeFromMustWatch,
       }}
     >
       {children}

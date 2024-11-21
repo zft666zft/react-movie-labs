@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getActorDetails, getActorMovies } from "../api/tmdb-api";
+import img from '../images/film-poster-placeholder.png';
+import CardMedia from '@mui/material/CardMedia';
 
 
 const ActorDetailsPage = () => {
@@ -24,11 +26,15 @@ const ActorDetailsPage = () => {
   return (
     <div style={{ padding: "20px" }}>
       <h2>{actor.name}</h2>
-      <img
-        src={actor.profile_path ? `https://image.tmdb.org/t/p/w300${actor.profile_path}` : "/images/film-poster-placeholder.png"}
-        alt={actor.name}
-        style={{ borderRadius: "10px", width: "300px", height: "450px", objectFit: "cover" }}
+        <CardMedia
+        sx={{ height: 450, width: 300, borderRadius: "10px", objectFit: "cover" }}
+        image={
+          actor.profile_path
+            ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+            : img
+        }
       />
+
       <div style={{ marginTop: "15px" }}>
         <h3>Biography</h3>
         <p>{actor.biography || "No biography available"}</p>
@@ -43,10 +49,13 @@ const ActorDetailsPage = () => {
         <div style={{ display: "flex", overflowX: "scroll" }}>
           {movies.cast.map((movie) => (
             <div key={movie.id} style={{ marginRight: "10px", textAlign: "center" }}>
-              <img
-                src={movie.poster_path ? `https://image.tmdb.org/t/p/w154${movie.poster_path}` : "/images/film-poster-placeholder.png"}
-                alt={movie.title}
-                style={{ width: "154px", height: "231px", borderRadius: "10px", objectFit: "cover" }}
+              <CardMedia
+                sx={{ height: 231, width: 154, borderRadius: "10px", objectFit: "cover" }}
+                image={
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                    : img
+                }
               />
               {/* 添加跳转到电影详情页面的链接 */}
               <Link to={`/movies/${movie.id}`} style={{ fontSize: '18px', color: '#3f51b5', textDecoration: 'none' }}>

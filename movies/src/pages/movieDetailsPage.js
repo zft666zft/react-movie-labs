@@ -6,6 +6,7 @@ import { getMovie } from '../api/tmdb-api';
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
 
+
 const MoviePage = () => {
   const { id } = useParams(); // 获取当前电影的 ID
   const { data: movie, error, isLoading, isError } = useQuery(

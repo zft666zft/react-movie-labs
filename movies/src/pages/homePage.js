@@ -9,10 +9,14 @@ import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1); // 当前页状态
+  const maxPages = 500; 
 
   const { data, error, isLoading, isError } = useQuery(
     ["discover", currentPage], // 使用当前页作为查询的一部分
-    () => getMovies(currentPage) // 获取当前页的电影数据
+    () => getMovies(currentPage), // 获取当前页的电影数据
+    {
+      keepPreviousData: true, // 在加载新数据时保持旧数据
+    }
   );
 
   if (isLoading) {
@@ -24,11 +28,13 @@ const HomePage = () => {
   }
 
   const movies = data.results;
-  const totalPages = data.total_pages; // 假设 API 返回中包含总页数
+  const totalPages = Math.min(data.total_pages, maxPages);
 
   // 处理页面更改
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage); // 更新当前页码
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= maxPages) {
+      setCurrentPage(page);
+    }
   };
 
   return (

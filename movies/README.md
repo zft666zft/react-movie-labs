@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# Assignment 1 - ReactJS app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Name**: Futong Zhu  
+**Student Number**: 20108799  
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This repository contains a ReactJS-based movie application that allows users to browse, filter, search, and manage their favorite movie lists and watchlists. The application leverages the TMDB API to fetch dynamic movie data, providing multiple views, detailed pages, and interactive features.
 
-### `npm start`
+#### Features
+1. **New Pages (Categorized by Endpoint Type)**:
+   - **Static Endpoints**:
+     - upcomingMoviesPage, trendingPage, HotMoviesPage, topRatedPage 
+     - Each fetching data from TMDB's corresponding static endpoints to provide seamless user experiences.
+   - **Parameterized Endpoints**: 
+       - recommendationsPage,similarMoviesPage,movieCastPage,movieCreditsPage,movieVideoListPage
+       - Each page dynamically fetches movie-specific data from TMDB's parameterized endpoints.
+   - **Watchlist**:
+     - Added a Watchlist page to save movies users plan to watch.
+  
+2. **Extensive Linking of Information**:
+   - On the Cast or Crew pages, users can click on individual names to navigate to their detailed profiles.  
+   - "View Movies" links enable quick access to the films that the person has participated in, enhancing the user experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. **Interactive Favorites and Watchlist Icons**:
+   - Clicking the icon once adds the movie to the respective page (favoriteMoviesPage or watchlistPage).
+   - Clicking the icon again removes it from the page.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. **Enhanced Filter Functionality**:
+   - Added filtering options:
+     - Rating and Release Year sliders.
+     - A sorting dropdown for better movie exploration.
 
-### `npm test`
+5. **Pagination Implementation**:
+   - Added pagination to improve navigation:
+     - The middle page number dynamically updates based on the total pages.
+     - Users can input a specific page number to directly jump to that page.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. **Efficient Caching**:
+   - Integrated caching using `react-query` across all static and parameterized endpoints to minimize memory consumption and optimize app performance.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup requirements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run the app locally after cloning the repository, follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zft666zft/react-movie-labs.git
+   cd react-movie-labs
+   cd movies
+   ```
 
-### `npm run eject`
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Set up your TMDB API key in a `.env` file:
+   ```env
+   REACT_APP_TMDB_API_KEY=your_tmdb_api_key_here
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Access the app at `http://localhost:3000`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## API endpoints
 
-## Learn More
+Below are the TMDB endpoints used in the app in the order of  provided code:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
++ **Discover movies**: `/discover/movie`  
+  Fetches a list of movies with optional filters like language and sorting.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
++ **Get movie details**: `/movie/:id`  
+  Retrieves detailed information about a specific movie.
 
-### Code Splitting
++ **Get genres**: `/genre/movie/list`  
+  Provides a list of movie genres.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
++ **Get movie images**: `/movie/:id/images`  
+  Fetches images (posters, backdrops) for a specific movie.
 
-### Analyzing the Bundle Size
++ **Get movie reviews**: `/movie/:id/reviews`  
+  Retrieves reviews for a specific movie.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
++ **Get upcoming movies**: `/movie/upcoming`  
+  Fetches a list of upcoming movies.
 
-### Making a Progressive Web App
++ **Get trending movies**: `/trending/movie/week`  
+  Fetches a list of trending movies for the week.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
++ **Get recommendations**: `/movie/:id/recommendations`  
+  Provides recommended movies based on a specific movie.
 
-### Advanced Configuration
++ **Get similar movies**: `/movie/:id/similar`  
+  Retrieves movies similar to a specific movie.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
++ **Get movie cast and crew**: `/movie/:id/credits`  
+  Provides a list of cast and crew for a specific movie.
 
-### Deployment
++ **Get actor movies**: `/person/:id/movie_credits`  
+  Fetches a list of movies associated with a specific actor.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
++ **Get hot movies**: `/movie/popular`  
+  Retrieves a list of popular movies.
 
-### `npm run build` fails to minify
++ **Get top-rated movies**: `/movie/top_rated`  
+  Fetches highly-rated movies.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
++ **Get actor details**: `/person/:id`  
+  Retrieves detailed information about a specific actor.
+
++ **Get movie videos**: `/movie/:id/videos`  
+  Fetches trailers and other videos for a specific movie.
+
+
+
+## Routing
+
+Here is the list of supported routes and their associated pages:
+
++ `/` - Displays the home page with a list of movies.
++ `/movies/favorites` - Displays the user's favorite movies.
++ `/movies/watchlist` - Displays the user's watchlist.
++ `/movies/upcoming` - Displays a list of upcoming movies.
++ `/movies/trending` - Displays trending movies for the week.
++ `/movies/hot-movies` - Displays popular movies.
++ `/movies/top-rated` - Displays top-rated movies.
++ `/movies/:id` - Displays detailed information about a specific movie.
++ `/movies/:id/recommendations` - Displays movie recommendations.
++ `/movies/:id/similar` - Displays similar movies.
++ `/movies/:id/cast` - Displays the cast of the movie.
++ `/movies/:id/credits` - Displays detailed credits (cast and crew) for a specific movie.
++ `/movies/:id/videos` - Displays trailers and other videos for a specific movie.
++ `/reviews/form` - Allows users to write a review.
++ `/reviews/:id` - Allows users to view or edit an existing review.
++ `/actors/:id/movies` - Displays movies associated with a specific actor.
++ `/actors/:id/details` - Displays detailed information about a specific actor.
+
+
+## Independent Learning (If Relevant)
+1. Interactive functionality for Favorites and Watchlist icons:
+   - Clicking the icon once adds the movie to the respective list; clicking again removes it.
+2. Pagination implementation:
+   - The page number in the middle dynamically updates with the total number of pages.
+   - Users can directly input a page number to jump to the desired page. 
+

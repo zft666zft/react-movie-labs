@@ -17,7 +17,7 @@ import SimilarMoviesPage from './pages/similarMoviesPage';
 import MovieCastPage from './pages/movieCastPage';
 import ActorMoviesPage from './pages/actorMoviesPage';
 import HotMoviesPage from './pages/HotMoviesPage';
-import LatestTrailersPage from './pages/LatestTrailersPage';
+import TopRatedPage from "./pages/topRatedPage";
 import MovieCreditsPage from './pages/movieCreditsPage';
 import ActorDetailsPage from './pages/ActorDetailsPage';
 import MovieVideoPage from "./pages/movieVideoPage";
@@ -54,8 +54,8 @@ const App = () => {
             <Route path="/movie/:id/similar" element={<SimilarMoviesPage />} />
             <Route path="/movie/:id/cast" element={<MovieCastPage />} />
             <Route path="/actor/:id/movies" element={<ActorMoviesPage />} />
-            <Route path="/hot-movies" element={<HotMoviesPage />} />
-            <Route path="/latest-trailers" element={<LatestTrailersPage />} />
+            <Route path="/movies/hot-movies" element={<HotMoviesPage />} />
+            <Route path="/movies/top-rated" element={<TopRatedPage />} />
             <Route path="/movie/:id/credits" element={<MovieCreditsPage />} />
             <Route path="/actor/:id/details" element={<ActorDetailsPage />} />
             <Route path="/movie/:id/video/:videoKey" element={<MovieVideoPage />} />

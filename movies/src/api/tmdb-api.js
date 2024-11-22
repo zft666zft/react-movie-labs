@@ -207,10 +207,10 @@ export const getHotMovies = () => {
     });
 };
 
-// 获取预告片信息
-export const getLatestTrailers = () => {
+
+export const getTopRatedMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
   )
     .then((response) => {
       if (!response.ok) {
@@ -220,20 +220,11 @@ export const getLatestTrailers = () => {
       }
       return response.json();
     })
-    .then(data => {
-      return Promise.all(data.results.map(movie =>
-        fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${process.env.REACT_APP_TMDB_KEY}`)
-          .then(response => response.json())
-          .then(videoData => ({
-            ...movie,
-            trailers: videoData.results.filter(video => video.type === "Trailer")
-          }))
-      ));
-    })
     .catch((error) => {
       throw error;
     });
 };
+
 
 
 // 获取电影的演员和制作人员

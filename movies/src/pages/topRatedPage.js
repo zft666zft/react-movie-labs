@@ -1,13 +1,13 @@
 import React from "react";
-import { useQuery } from "react-query";
-import Spinner from "../components/spinner";
-import { getLatestTrailers } from "../api/tmdb-api";
+import { getTopRatedMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
+import { useQuery } from 'react-query';
+import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
-const LatestTrailersPage = () => {
-  const { data, error, isLoading, isError } = useQuery("latestTrailers", getLatestTrailers);
+const TopRatedPage = () => {
+  const { data, error, isLoading, isError } = useQuery('topRated', getTopRatedMovies);
 
   if (isLoading) {
     return <Spinner />;
@@ -17,11 +17,11 @@ const LatestTrailersPage = () => {
     return <h1>{error.message}</h1>;
   }
 
-  const movies = data.filter(movie => movie.trailers.length > 0); // 只保留有预告片的电影
+  const movies = data.results;
 
   return (
     <PageTemplate
-      title="Latest Trailers"
+      title="Top Rated Movies"
       movies={movies}
       action={(movie) => (
         <>
@@ -33,4 +33,4 @@ const LatestTrailersPage = () => {
   );
 };
 
-export default LatestTrailersPage;
+export default TopRatedPage;

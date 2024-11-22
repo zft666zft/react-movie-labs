@@ -3,8 +3,7 @@ import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
-import Pagination from "../pagination";
-import { MoviesContext } from "../../contexts/moviesContext";
+
 
 function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
@@ -12,19 +11,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [ratingFilter, setRatingFilter] = useState([0, 10]); // 评分区间
   const [releaseDateFilter, setReleaseDateFilter] = useState([2000, new Date().getFullYear()]); // 发布年份区间
   const [sortOption, setSortOption] = useState(""); // 添加排序选项
-  const [currentPage, setCurrentPage] = useState(1);
-  const [moviesPerPage] = useState(10); // 每页显示的电影数量
 
-  const { favorites, mustWatch } = useContext(MoviesContext);
-
-  useEffect(() => {
-    // 初始时设置 favoritesPage 和 watchlistPage 的电影列表为空
-    if (title === "Favorite Movies" && favorites.length === 0) {
-      setCurrentPage(1);
-    } else if (title === "Watchlist" && mustWatch.length === 0) {
-      setCurrentPage(1);
-    }
-  }, [title, favorites, mustWatch]);
 
   const genreId = Number(genreFilter);
 
@@ -51,12 +38,7 @@ function MovieListPageTemplate({ movies, title, action }) {
     return 0;
   });
 
-  // 分页逻辑
-  const indexOfLastMovie = currentPage * moviesPerPage;
-  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const currentMovies = displayedMovies.slice(indexOfFirstMovie, indexOfLastMovie);
-  const totalPages = Math.ceil(displayedMovies.length / moviesPerPage);
-
+  
   const handleChange = (type, value) => {
     switch (type) {
       case "name":
@@ -79,11 +61,7 @@ function MovieListPageTemplate({ movies, title, action }) {
     }
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
+  
 
   return (
     <Grid container>
@@ -104,10 +82,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             releaseDateFilter={releaseDateFilter}
           />
         </Grid>
-        <MovieList action={action} movies={currentMovies}></MovieList>
-        <Grid container justifyContent="center" sx={{ marginTop: "20px" }}>
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-      </Grid>
+        <MovieList action={action} movies={displayedMovies}></MovieList>
       </Grid>
       
     </Grid>

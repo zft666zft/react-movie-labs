@@ -39,7 +39,8 @@ This repository contains a ReactJS-based movie application that allows users to 
 6. **Efficient Caching**:
    - Integrated caching using `react-query` across all static and parameterized endpoints to minimize memory consumption and optimize app performance.
 
-
+7. **Placeholder Images**:  
+   - Added logic to display  the placeholder image for movies or people without pictures, ensuring a cohesive and user-friendly interface.  
 ## Setup requirements
 
 To run the app locally after cloning the repository, follow these steps:
@@ -143,9 +144,10 @@ Here is the list of supported routes and their associated pages:
 
 
 ## Independent Learning (If Relevant)
-1. Interactive functionality for Favorites and Watchlist icons:
+1. **Interactive functionality for Favorites and Watchlist icons**:
    - Clicking the icon once adds the movie to the respective list; clicking again removes it.
-2. Pagination implementation:
+2. **Pagination implementation**:
    - The page number in the middle dynamically updates with the total number of pages.
    - Users can directly input a page number to jump to the desired page. 
-
+3. **Placeholder Images**:  
+   - Added logic to display the placeholder image for movies or people without pictures, ensuring a cohesive and user-friendly interface.  

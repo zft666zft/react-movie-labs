@@ -59,7 +59,7 @@ To run the app locally after cloning the repository, follow these steps:
 
 3. Set up your TMDB API key in a `.env` file:
    ```env
-   REACT_APP_TMDB_API_KEY=your_tmdb_api_key_here
+   REACT_APP_TMDB_KEY=your_tmdb_api_key_here
    ```
 
 4. Start the development server:
